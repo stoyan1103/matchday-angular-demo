@@ -1,0 +1,67 @@
+<section class="details-page">
+  <a class="back-link" routerLink="/matches">Back to Matches</a>
+
+  @if (match(); as selectedMatch) {
+    <article class="details-card">
+      <header>
+        <p class="competition">{{ selectedMatch.competition }}</p>
+        <h1>{{ selectedMatch.homeTeam }} vs {{ selectedMatch.awayTeam }}</h1>
+        <span class="status">{{ selectedMatch.status }}</span>
+      </header>
+
+      <div class="score-panel">
+        @if (selectedMatch.status === 'scheduled') {
+          <p class="scheduled-label">Kickoff coming soon</p>
+        } @else {
+          <p class="score-label">
+            {{ selectedMatch.status === 'live' ? 'Current score' : 'Final score' }}
+          </p>
+
+          <p class="score">
+            {{ selectedMatch.homeScore | score }}
+            <span>–</span>
+            {{ selectedMatch.awayScore | score }}
+          </p>
+        }
+      </div>
+
+      <dl class="match-info">
+        <div>
+          <dt>Home team</dt>
+          <dd>{{ selectedMatch.homeTeam }}</dd>
+        </div>
+
+        <div>
+          <dt>Away team</dt>
+          <dd>{{ selectedMatch.awayTeam }}</dd>
+        </div>
+
+        <div>
+          <dt>Kickoff</dt>
+          <dd>
+            <time [attr.datetime]="selectedMatch.kickoff">
+              {{ selectedMatch.kickoff | date: 'medium' }}
+            </time>
+          </dd>
+        </div>
+      </dl>
+
+      <button
+        class="favourite-button"
+        type="button"
+        [attr.aria-pressed]="selectedMatch.isFavourite"
+        (click)="toggleFavourite()"
+      >
+        <span aria-hidden="true">
+          {{ selectedMatch.isFavourite ? '★' : '☆' }}
+        </span>
+        Favourite
+      </button>
+    </article>
+  } @else {
+    <div class="empty-state">
+      <h1>Match not found</h1>
+      <p>No match exist with this ID. Use the link above to return to the dashboard.</p>
+    </div>
+  }
+</section>

@@ -1,0 +1,259 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.match-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.4rem;
+
+  background: #15253a;
+  border: 1px solid #435a76;
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 16%);
+
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+@media (hover: hover) {
+  .match-card:hover {
+    transform: translateY(-3px);
+    background: #192d45;
+    border-color: #69e5b1;
+    box-shadow: 0 12px 26px rgb(0 0 0 / 25%);
+  }
+}
+
+.match-card:focus-within {
+  border-color: #69e5b1;
+  box-shadow: 0 0 0 2px rgb(105 229 177 / 20%);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.competition {
+  color: #bdcde0;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status {
+  padding: 0.25rem 0.65rem;
+  color: #c7d8ef;
+  background: #263c57;
+  border: 1px solid #49617f;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.status--live {
+  color: #8cf0bd;
+  background: #153e32;
+  border-color: #398367;
+}
+
+.status--finished {
+  color: #d5cef8;
+  background: #332d4d;
+  border-color: #66578a;
+}
+
+.teams {
+  display: grid;
+  gap: 0.35rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.team-name {
+  color: #f0f5fc;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.versus {
+  color: #9db1ca;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.score-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 90px;
+  margin-top: auto;
+  padding: 0.9rem;
+
+  background: #0e1a2b;
+  border: 1px solid #304762;
+  border-radius: 0.75rem;
+}
+
+.score-label {
+  color: #aabed6;
+  font-size: 0.75rem;
+}
+
+.scheduled-label {
+  color: #c1d0e3;
+  font-size: 0.9rem;
+}
+
+.score {
+  margin: 0;
+  color: #f4f8ff;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-divider {
+  margin-inline: 0.5rem;
+  color: #748aa6;
+}
+
+.kickoff {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  color: #aabed6;
+  font-size: 0.8rem;
+}
+
+.kickoff time {
+  color: #e0e9f5;
+}
+
+.card-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #344b65;
+}
+
+.card-footer > * {
+  min-width: 0;
+}
+
+.favourite-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+
+  color: #dce6f3;
+  background: #20364f;
+  border: 1px solid #49617f;
+  border-radius: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.favourite-button:hover {
+  background: #2a4563;
+  border-color: #8ba7c7;
+}
+
+.favourite-button[aria-pressed='true'] {
+  color: #ffe09a;
+  background: #3b311d;
+  border-color: #b98c35;
+}
+
+.favourite-button[aria-pressed='true']:hover {
+  background: #4a3d22;
+  border-color: #ffd479;
+}
+
+.favourite-button:focus-visible {
+  outline: 2px solid #69e5b1;
+  outline-offset: 4px;
+}
+
+.details-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.65rem 0.75em;
+
+  color: #0b241b;
+  background: #69e5b1;
+  border: 1px solid #69e5b1;
+  border-radius: 0.625rem;
+
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.details-link:hover {
+  background: #91f0c7;
+  border-color: #91f0c7;
+}
+
+.details-link:active {
+  background: #4acb96;
+  border-color: #4acb96;
+}
+
+.details-link:focus-visible {
+  outline: 2px solid #6935b1;
+  outline-offset: 4px;
+}
+
+@media (max-width: 380px) {
+  .card-footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .match-card,
+  .favourite-button {
+    transition: none;
+  }
+
+  .match-card:hover {
+    transform: none;
+  }
+
+  .details-link {
+    transition: none;
+  }
+}

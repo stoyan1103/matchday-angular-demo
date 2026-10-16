@@ -1,0 +1,51 @@
+<section class="dashboard" aria-labelledby="dashboard-title">
+  <header class="page-heading">
+    <span class="eyebrow">FOOTBALL DASHBOARD</span>
+
+    <h1 id="dashboard-title">Match Centre</h1>
+
+    <p>Browse fixtures, follow scores, and save your favourites.</p>
+
+    <a class="create-fixture-link" routerLink="/matches/new">
+      <span aria-hidden="true">+</span>
+      Create Fixture
+    </a>
+  </header>
+
+  <div class="match-count">
+    <p class="total-matches">Total Matches: {{ totalMatches() }}</p>
+    <p class="live-matches">Live Matches: {{ liveMatchesCount() }}</p>
+    <p class="favourite-matches">Favourite Matches: {{ favouriteMatchesCount() }}</p>
+  </div>
+
+  <div class="match-toolbar">
+    <div class="search-field">
+      <label for="team-search">Search Teams</label>
+
+      <input
+        id="team-search"
+        type="search"
+        [formControl]="teamSearchControl"
+        placeholder="Search by home or away team..."
+      />
+    </div>
+
+    <button
+      class="favourites-filter"
+      type="button"
+      [attr.aria-pressed]="favouritesOnly()"
+      (click)="toggleFavouritesFilter()"
+    >
+      <span aria-hidden="true">*</span>
+      {{ favouritesOnly() ? 'Show All Matches' : 'Show Favourites Only' }}
+    </button>
+  </div>
+
+  <div class="match-grid">
+    @for (match of visibleMatches(); track match.id) {
+      <app-match-card [match]="match" (favouriteToggled)="onFavouriteToggled($event)" />
+    } @empty {
+      <p class="no-matches">No matches found.</p>
+    }
+  </div>
+</section>

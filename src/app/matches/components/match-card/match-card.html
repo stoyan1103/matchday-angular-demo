@@ -1,0 +1,65 @@
+<article class="match-card">
+  <header class="card-header">
+    <span class="competition">{{ match().competition }}</span>
+
+    <span
+      class="status"
+      [class.status--live]="match().status === 'live'"
+      [class.status--finished]="match().status === 'finished'"
+    >
+      {{ match().status }}
+    </span>
+  </header>
+
+  <h2 class="teams">
+    <span class="team-name">{{ match().homeTeam }}</span>
+    <span class="versus">vs</span>
+    <span class="team-name">{{ match().awayTeam }}</span>
+  </h2>
+
+  <div class="score-panel">
+    @if (match().status === 'scheduled') {
+      <span class="scheduled-label">Not started</span>
+    } @else {
+      <span class="score-label">
+        {{ match().status === 'live' ? 'Current score' : 'Final score' }}
+      </span>
+
+      <p class="score">
+        {{ match().homeScore | score }}
+        <span class="score-divider">–</span>
+        {{ match().awayScore | score }}
+      </p>
+    }
+  </div>
+
+  <p class="kickoff">
+    <span>Kickoff</span>
+    <time [attr.datetime]="match().kickoff">
+      {{ match().kickoff | date: 'dd MMM, HH:mm' }}
+    </time>
+  </p>
+
+  <footer class="card-footer">
+    <button
+      class="favourite-button"
+      type="button"
+      [attr.aria-pressed]="match().isFavourite"
+      [attr.aria-label]="'Favourite: ' + match().homeTeam + ' vs ' + match().awayTeam"
+      (click)="toggleFavourite()"
+    >
+      <span aria-hidden="true">
+        {{ match().isFavourite ? '★' : '☆' }}
+      </span>
+      Favourite
+    </button>
+
+    <a
+      class="details-link"
+      [routerLink]="['/matches', match().id]"
+      [attr.aria-label]="'View details: ' + match().homeTeam + ' vs ' + match().awayTeam"
+      >View details
+      <span aria-hidden="true"></span>
+    </a>
+  </footer>
+</article>

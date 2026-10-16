@@ -1,0 +1,124 @@
+<section class="match-form" aria-labelledby="form-title">
+  <header class="form-header">
+    <span class="eyebrow">MATCHDAY - NEW FIXTURE</span>
+    <h1 id="form-title">Create fixture</h1>
+    <p>Add the teams, competition, and kickoff date and time.</p>
+  </header>
+
+  <form #formDirective="ngForm" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <label for="home-team">Home Team</label>
+      <input
+        id="home-team"
+        type="text"
+        formControlName="homeTeam"
+        placeholder="For example, Arsenal"
+        [attr.aria-invalid]="form.controls.homeTeam.touched && form.controls.homeTeam.invalid"
+        [attr.aria-describedby]="
+          form.controls.homeTeam.touched && form.controls.homeTeam.invalid
+            ? 'home-team-error'
+            : null
+        "
+      />
+
+      @if (form.controls.homeTeam.touched) {
+        @if (form.controls.homeTeam.hasError('required')) {
+          <p id="home-team-error" class="field-error">Home team is required.</p>
+        } @else if (form.controls.homeTeam.hasError('pattern')) {
+          <p id="home-team-error" class="field-error">Enter a team name, not only spaces</p>
+        }
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="away-team">Away Team</label>
+      <input
+        id="away-team"
+        type="text"
+        formControlName="awayTeam"
+        placeholder="For example, Chelsea"
+        [attr.aria-invalid]="form.controls.awayTeam.touched && form.controls.awayTeam.invalid"
+        [attr.aria-describedby]="
+          form.controls.awayTeam.touched && form.controls.awayTeam.invalid
+            ? 'away-team-error'
+            : null
+        "
+      />
+
+      @if (form.controls.awayTeam.touched) {
+        @if (form.controls.awayTeam.hasError('required')) {
+          <p id="away-team-error" class="field-error">Away team is required.</p>
+        } @else if (form.controls.awayTeam.hasError('pattern')) {
+          <p id="away-team-error" class="field-error">Enter a team name, not only spaces.</p>
+        }
+      }
+    </div>
+
+    @if (
+      form.hasError('sameTeams') &&
+      (form.controls.homeTeam.touched || form.controls.awayTeam.touched)
+    ) {
+      <p class="field-error group-error">Home and away teams must be different.</p>
+    }
+
+    <div class="form-field">
+      <label for="competitions">Competition</label>
+      <select
+        id="competitions"
+        formControlName="competition"
+        [attr.aria-invalid]="form.controls.competition.touched && form.controls.competition.invalid"
+        [attr.aria-describedby]="
+          form.controls.competition.touched && form.controls.competition.invalid
+            ? 'competition-error'
+            : null
+        "
+      >
+        @for (competition of competitions; track competition) {
+          <option [value]="competition">{{ competition }}</option>
+        }
+      </select>
+
+      @if (form.controls.competition.touched && form.controls.competition.hasError('required')) {
+        <p id="competition-error" class="field-error">Competition is required.</p>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="kickoff">Kickoff date and time</label>
+      <input
+        id="kickoff"
+        type="datetime-local"
+        formControlName="kickoff"
+        [attr.aria-invalid]="form.controls.kickoff.touched && form.controls.kickoff.invalid"
+        [attr.aria-describedby]="
+          form.controls.kickoff.touched && form.controls.kickoff.invalid
+            ? 'kickoff-hint kickoff-error'
+            : 'kickoff-hint'
+        "
+      />
+
+      <p class="field-hint" id="kickoff-hint">Enter kickoff in your local time.</p>
+
+      @if (form.controls.kickoff.touched) {
+        @if (form.controls.kickoff.hasError('required')) {
+          <p id="kickoff-error" class="field-error">Choose a kickoff date and time.</p>
+        } @else if (form.controls.kickoff.hasError('invalidDate')) {
+          <p id="kickoff-error" class="field-error">Enter a valid kickoff date and time.</p>
+        }
+      }
+    </div>
+
+    <footer class="form-actions">
+      <button class="reset-button" type="button" (click)="onReset(formDirective)">
+        Reset form
+      </button>
+
+      <a class="cancel-link" routerLink="/matches">Cancel</a>
+
+      <button class="submit-button" type="submit">
+        Create fixture
+        <span aria-hidden="true">→</span>
+      </button>
+    </footer>
+  </form>
+</section>
